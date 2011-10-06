@@ -56,6 +56,6 @@
 
 (defn person [name]
   (fn
-    ([] (name))
+    ([] name)
     ([relation name2]
-      (if (= likes relation) (befriend name name2) (if (= hates relation) (oppose name name2))))))
+      (if (= likes relation) (befriend name (name2)) (if (= hates relation) (oppose name (name2)))))))

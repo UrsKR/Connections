@@ -7,11 +7,13 @@
      (def Urs (person "Urs"))
      (def dogs (person "Dogs"))
      (def stinkers (person "Stinkers"))
-     (def Urs-likes-dogs (Urs likes "Dogs"))
-     (def Urs-hates-stinkers (Urs hates "Stinkers"))
-     (def dogs-like-owners (dogs like "Dog owners"))
-     (def dogs-hate-stinkers (dogs hate "Stinkers"))
-     (def stinkers-hate-cats (stinkers hate "Cats")))
+     (def dog-owners (person "Dog owners"))
+     (def cats (person "Cats"))
+     (def Urs-likes-dogs (Urs likes dogs))
+     (def Urs-hates-stinkers (Urs hates stinkers))
+     (def dogs-like-owners (dogs like dog-owners))
+     (def dogs-hate-stinkers (dogs hate stinkers))
+     (def stinkers-hate-cats (stinkers hate cats)))
     (test)))
 
 (deftest friendsCooperate
