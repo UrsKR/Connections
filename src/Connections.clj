@@ -6,6 +6,10 @@
 (def hates "hates")
 (def hate "hates")
 
+(def cooperative "Cooperative")
+(def uncooperative "Uncooperative")
+(def ignorant "None")
+
 (defn- belongsTo [query connection1 connection2]
   (if (connection1 query) connection1 connection2))
 
@@ -28,8 +32,8 @@
   ([query1 query2 connection]
     (connection query1 query2))
   ([query1 query2 connection1 connection2]
-    (if (not (are-linked? query1 query2 connection1 connection2)) "None"
-      (if (common-attitude-towards-link? query1 query2 connection1 connection2) "Cooperative" "Uncooperative"))))
+    (if (not (are-linked? query1 query2 connection1 connection2)) ignorant
+      (if (common-attitude-towards-link? query1 query2 connection1 connection2) cooperative uncooperative))))
 
 (defn- connect [name1 relation name2]
   (fn
@@ -38,11 +42,11 @@
     ([query1 query2]
       (let [connectedPersons (list name1 name2)]
         (if (not (list-contains? connectedPersons query1 query2))
-          "None"
+          ignorant
           (if (= relation likes)
-            "Cooperative"
+            cooperative
             (if (= relation hates)
-              "Uncooperative")))))))
+              uncooperative)))))))
 
 (defn befriend [name1 name2]
   (connect name1 likes name2))
