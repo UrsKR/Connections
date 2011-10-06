@@ -23,7 +23,7 @@
 
 (defn are-linked?
     ([connection query1 query2]
-        (and (not (= nil (connection query1))) (not (= nil (connection query2)))))
+        (and (connection query1) (connection query2)))
     ([connection1 connection2 query1 query2]
         (= (connection1 query1) (connection2 query2))))
 
