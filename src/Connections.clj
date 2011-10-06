@@ -2,9 +2,9 @@
   (:use Collections))
 
 (def likes "likes")
-(def like "likes")
+(def like likes)
 (def hates "hates")
-(def hate "hates")
+(def hate hates)
 
 (def cooperative "Cooperative")
 (def uncooperative "Uncooperative")
