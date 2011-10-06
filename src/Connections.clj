@@ -29,8 +29,7 @@
 
 (defn connected
     ([connection query1 query2]
-        (if (not (are-linked? connection query1 query2)) "None"
-            (connection query1 query2)))
+        (connection query1 query2))
     ([connection1 connection2 query1 query2]
         (if (not (are-linked? connection1 connection2 query1 query2)) "None"
             (if (common-attitude-towards-link? connection1 connection2 query1 query2) "Cooperative" "Uncooperative"))))
