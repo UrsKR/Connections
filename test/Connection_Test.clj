@@ -4,11 +4,11 @@
 
 (defn create-relationships [test]
     ((do
-            (def Urs-mag-Hunde (befriend "Urs" "Hunde"))
-            (def Urs-mag-keine-Stinker (oppose "Urs" "Stinker"))
-            (def Hunde-moegen-Herrchen (befriend "Hunde" "Hundebesitzer"))
-            (def Hunde-moegen-keine-Stinker (oppose "Hunde" "Stinker"))
-            (def Stinker-moegen-keine-Katzen (oppose "Stinker" "Katzen")))
+         (def Urs-mag-Hunde (befriend "Urs" "Hunde"))
+         (def Urs-mag-keine-Stinker (oppose "Urs" "Stinker"))
+         (def Hunde-moegen-Herrchen (befriend "Hunde" "Hundebesitzer"))
+         (def Hunde-moegen-keine-Stinker (oppose "Hunde" "Stinker"))
+         (def Stinker-moegen-keine-Katzen (oppose "Stinker" "Katzen")))
         (test)))
 
 (deftest friendsCooperate
