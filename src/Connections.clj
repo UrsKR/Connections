@@ -20,14 +20,14 @@
 (defn- belongsTo [query connection1 connection2]
   (if (connection1 query) connection1 connection2))
 
-(defn- common-attitude-towards-link?
+(defn- share-a-bond
   [query1 query2 connection1 connection2]
   (def connectionForQuery1 (belongsTo query1 connection1 connection2))
   (def connectionForQuery2 (belongsTo query2 connection1 connection2))
   (def link (connectionForQuery1 query1))
   (def attitude1 (connectionForQuery1 query1 link))
   (def attitude2 (connectionForQuery2 query2 link))
-  (= attitude1 attitude2))
+  (attitude1 attitude2))
 
 (defn- are-linked?
   ([query1 query2 connection]
@@ -40,7 +40,7 @@
     (connection query1 query2))
   ([query1 query2 connection1 connection2]
     (if (not (are-linked? query1 query2 connection1 connection2)) ignorant
-      (if (common-attitude-towards-link? query1 query2 connection1 connection2) cooperative uncooperative))))
+      (share-a-bond query1 query2 connection1 connection2))))
 
 (defn- connect [name1 relation name2]
   (fn
