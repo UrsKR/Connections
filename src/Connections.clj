@@ -15,7 +15,7 @@
             (if (= relation "Antagonistic") "Uncooperative"
             "None")))))
 
-(defn connect [name1 name2 relation]
+(defn- connect [name1 name2 relation]
      (fn [query1 query2] (connected name1 name2 relation query1 query2)))
 
 (defn befriend [name1 name2]

@@ -2,26 +2,17 @@
     (:use clojure.test)
     (:use Connections))
 
-(deftest friendlyAttitudeYieldsCooperation
-  (is (= "Cooperative" ((connect "Urs" "Hunde" "Friendly") "Urs" "Hunde"))))
-
-(deftest relationshipsAreCommutative
-  (is (= "Cooperative" ((connect "Urs" "Hunde" "Friendly") "Hunde" "Urs"))))
-
-(deftest antagonisticAttitudeYieldsLackOfCooperation
-  (is (= "Uncooperative" ((connect "Urs" "Stinker" "Antagonistic") "Urs" "Stinker"))))
-
-(deftest ignoranceYieldsNoPrevalentBehaviour
-      (is (= "None" ((connect "Urs" "Hunde" "Friendly") "Urs" "Stinker"))))
-
-(deftest strangeConnectionsLeadToUnknownBehaviour
-      (is (= "None" ((connect "Urs" "Hunde" "Harky") "Urs" "Hunde"))))
-
 (deftest friendsCooperate
-      (is (= "Cooperative" ((befriend "Urs" "Hunde") "Urs" "Hunde"))))
+    (is (= "Cooperative" ((befriend "Urs" "Hunde") "Urs" "Hunde"))))
 
 (deftest enemiesHinder
       (is (= "Uncooperative" ((oppose "Urs" "Stinker") "Urs" "Stinker"))))
+
+(deftest ignoranceYieldsNoPrevalentBehaviour
+        (is (= "None" ((befriend "Urs" "Hunde") "Urs" "Stinker"))))
+
+(deftest relationshipsAreCommutative
+  (is (= "Cooperative" ((befriend "Urs" "Hunde" ) "Hunde" "Urs"))))
 
 (comment (deftest friendlyBehaviourIsTransitive
       (
