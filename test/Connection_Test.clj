@@ -17,6 +17,12 @@
 (deftest strangeConnectionsLeadToUnknownBehaviour
       (is (= "None" ((connect "Urs" "Hunde" "Harky") "Urs" "Hunde"))))
 
+(deftest friendsCooperate
+      (is (= "Cooperative" ((befriend "Urs" "Hunde") "Urs" "Hunde"))))
+
+(deftest enemiesHinder
+      (is (= "Uncooperative" ((oppose "Urs" "Stinker") "Urs" "Stinker"))))
+
 (comment (deftest friendlyBehaviourIsTransitive
       (
           (def firstFriendship (connect "Urs" "Hunde" "Friendly"))

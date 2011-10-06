@@ -17,3 +17,9 @@
 
 (defn connect [name1 name2 relation]
      (fn [query1 query2] (connected name1 name2 relation query1 query2)))
+
+(defn befriend [name1 name2]
+    (connect name1 name2 "Friendly"))
+
+(defn oppose [name1 name2]
+    (connect name1 name2 "Antagonistic"))
