@@ -16,6 +16,10 @@
     (def attitude2 (connection2 link query2))
     (= attitude1 attitude2))
 
+(defn are-linked?
+    [connection1 connection2 query1 query2]
+    (= (connection1 query1) (connection2 query2)))
+
 (defn connected
     ([person1 person2 relation query1 query2]
         (let [connectedPersons (list person1 person2)]
@@ -26,8 +30,7 @@
                     (if (= relation "Antagonistic")
                         "Uncooperative")))))
     ([connection1 connection2 query1 query2]
-        (def link (connection1 query1))
-        (if (not (= link (connection2 query2))) "None"
+        (if (not (are-linked? connection1 connection2 query1 query2)) "None"
             (if (common-attitude-towards-link? connection1 connection2 query1 query2) "Cooperative" "Uncooperative"))))
 
 (defn- connect [name1 name2 relation]
