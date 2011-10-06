@@ -9,12 +9,14 @@
         (if (list-contains? collection value)
             (apply list-contains? collection next))))
 
+(defn belongsTo [connection1 connection2 query]
+    (if (not (= nil (connection1 query))) connection1 connection2))
+
 (defn common-attitude-towards-link?
     [connection1 connection2 query1 query2]
-
-    (def link-option-1 (connection1 query1))
-    (def link-option-2 (connection1 query2))
-    (def link (if (= nil link-option-1) link-option-2 link-option-1))
+    (def connectionForQuery1 (belongsTo connection1 connection2 query1))
+    (def connectionForQuery2 (belongsTo connection1 connection2 query2))
+    (def link (connectionForQuery1 query1))
 
     (def attitude1-option-1 (connection1 query1 link))
     (def attitude1-option-2 (connection1 query2 link))
