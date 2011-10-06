@@ -9,6 +9,13 @@
         (if (list-contains? collection value)
             (apply list-contains? collection next))))
 
+(defn common-attitude-towards-link?
+    [connection1 connection2 query1 query2]
+    (def link (connection1 query1))
+    (def attitude1 (connection1 query1 link))
+    (def attitude2 (connection2 link query2))
+    (= attitude1 attitude2))
+
 (defn connected
     ([person1 person2 relation query1 query2]
         (let [connectedPersons (list person1 person2)]
@@ -21,11 +28,7 @@
     ([connection1 connection2 query1 query2]
         (def link (connection1 query1))
         (if (not (= link (connection2 query2))) "None"
-            (if (and (= "Cooperative" (connection1 query1 link)) (= "Cooperative" (connection2 link query2)))
-                "Cooperative"
-                (if (and (= "Uncooperative" (connection1 query1 link)) (= "Uncooperative" (connection2 link query2)))
-                    "Cooperative"
-                    "Uncooperative")))))
+            (if (common-attitude-towards-link? connection1 connection2 query1 query2) "Cooperative" "Uncooperative"))))
 
 (defn- connect [name1 name2 relation]
     (fn
