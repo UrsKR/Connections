@@ -14,6 +14,8 @@
 (def like likes)
 (def hates (relationship uncooperative))
 (def hate hates)
+(def ignores (relationship ignorant))
+(def ignore ignores)
 
 (defn- belongsTo [query connection1 connection2]
   (if (connection1 query) connection1 connection2))
