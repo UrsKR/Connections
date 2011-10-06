@@ -1,30 +1,30 @@
 (ns Connections
   (:use Collections))
 
-(defn- belongsTo [connection1 connection2 query]
+(defn- belongsTo [query connection1 connection2]
   (if (connection1 query) connection1 connection2))
 
 (defn- common-attitude-towards-link?
-  [connection1 connection2 query1 query2]
-  (def connectionForQuery1 (belongsTo connection1 connection2 query1))
-  (def connectionForQuery2 (belongsTo connection1 connection2 query2))
+  [query1 query2 connection1 connection2]
+  (def connectionForQuery1 (belongsTo query1 connection1 connection2))
+  (def connectionForQuery2 (belongsTo query2 connection1 connection2))
   (def link (connectionForQuery1 query1))
   (def attitude1 (connectionForQuery1 query1 link))
   (def attitude2 (connectionForQuery2 query2 link))
   (= attitude1 attitude2))
 
 (defn- are-linked?
-  ([connection query1 query2]
+  ([query1 query2 connection]
     (and (connection query1) (connection query2)))
-  ([connection1 connection2 query1 query2]
+  ([query1 query2 connection1 connection2]
     (= (connection1 query1) (connection2 query2))))
 
 (defn connected
-  ([connection query1 query2]
+  ([query1 query2 connection]
     (connection query1 query2))
-  ([connection1 connection2 query1 query2]
-    (if (not (are-linked? connection1 connection2 query1 query2)) "None"
-      (if (common-attitude-towards-link? connection1 connection2 query1 query2) "Cooperative" "Uncooperative"))))
+  ([query1 query2 connection1 connection2]
+    (if (not (are-linked? query1 query2 connection1 connection2)) "None"
+      (if (common-attitude-towards-link? query1 query2 connection1 connection2) "Cooperative" "Uncooperative"))))
 
 (defn- connect [name1 relation name2]
   (fn

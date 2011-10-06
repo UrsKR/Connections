@@ -12,16 +12,16 @@
     (test)))
 
 (deftest friendsCooperate
-  (is (= "Cooperative" (connected Urs-mag-Hunde "Urs" "Hunde"))))
+  (is (= "Cooperative" (connected "Urs" "Hunde" Urs-mag-Hunde))))
 
 (deftest enemiesHinder
-  (is (= "Uncooperative" (connected Urs-mag-keine-Stinker "Urs" "Stinker"))))
+  (is (= "Uncooperative" (connected "Urs" "Stinker" Urs-mag-keine-Stinker))))
 
 (deftest ignoranceYieldsNoPrevalentBehaviour
-  (is (= "None" (connected Urs-mag-Hunde "Urs" "Stinker"))))
+  (is (= "None" (connected "Urs" "Stinker" Urs-mag-Hunde))))
 
 (deftest relationshipsAreCommutative
-  (is (= "Cooperative" (connected Urs-mag-Hunde "Hunde" "Urs"))))
+  (is (= "Cooperative" (connected "Hunde" "Urs" Urs-mag-Hunde))))
 
 
 (deftest relationshipsAreVisible
@@ -35,22 +35,22 @@
 
 
 (deftest friendsOfMyFriendsAreMyFriends
-  (is (= "Cooperative" (connected Urs-mag-Hunde Hunde-moegen-Herrchen "Urs" "Hundebesitzer"))))
+  (is (= "Cooperative" (connected "Urs" "Hundebesitzer" Urs-mag-Hunde Hunde-moegen-Herrchen))))
 
 (deftest friendsOfMyFriendsAreMyFriendsNoMatterWhichWayILookAtIt
-  (is (= "Cooperative" (connected Urs-mag-Hunde Hunde-moegen-Herrchen "Hundebesitzer" "Urs"))))
+  (is (= "Cooperative" (connected "Hundebesitzer" "Urs" Urs-mag-Hunde Hunde-moegen-Herrchen))))
 
 (deftest enemiesOfMyFriendsAreMyEnemies
-  (is (= "Uncooperative" (connected Urs-mag-Hunde Hunde-moegen-keine-Stinker "Urs" "Stinker"))))
+  (is (= "Uncooperative" (connected "Urs" "Stinker" Urs-mag-Hunde Hunde-moegen-keine-Stinker))))
 
 (deftest enemiesOfMyFriendsAreMyEnemiesNoMatterWhichWayILookAtIt
-  (is (= "Uncooperative" (connected Urs-mag-Hunde Hunde-moegen-keine-Stinker "Stinker" "Urs"))))
+  (is (= "Uncooperative" (connected "Stinker" "Urs" Urs-mag-Hunde Hunde-moegen-keine-Stinker))))
 
 (deftest aCommonEnemyUnites
-  (is (= "Cooperative" (connected Urs-mag-keine-Stinker Stinker-moegen-keine-Katzen "Urs" "Katzen"))))
+  (is (= "Cooperative" (connected "Urs" "Katzen" Urs-mag-keine-Stinker Stinker-moegen-keine-Katzen))))
 
 (deftest unrelatedRelationshipsDoNotMatter
-  (is (= "None" (connected Urs-mag-Hunde Stinker-moegen-keine-Katzen "Urs" "Stinker"))))
+  (is (= "None" (connected "Urs" "Stinker" Urs-mag-Hunde Stinker-moegen-keine-Katzen))))
 
 (use-fixtures :each create-relationships)
 (run-tests)
