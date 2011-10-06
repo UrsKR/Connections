@@ -48,9 +48,7 @@
       (if (= query name1) name2 (if (= query name2) name1)))
     ([query1 query2]
       (let [connectedPersons (list name1 name2)]
-        (if (not (list-contains? connectedPersons query1 query2))
-          ignores relation
-          )))))
+        (if (not (list-contains? connectedPersons query1 query2)) ignores relation)))))
 
 (defn befriend [name1 name2]
   (connect name1 likes name2))
