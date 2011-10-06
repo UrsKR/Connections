@@ -6,9 +6,9 @@
 (def ignorant "None")
 
 (defn relationship [attitude]
-  (fn
+  (fn relate
     ([] attitude)
-    ([other-relationship] (if (= ((relationship attitude)) (other-relationship)) cooperative uncooperative))))
+    ([other-relationship] (if (= (relate) (other-relationship)) cooperative uncooperative))))
 
 (def likes (relationship cooperative))
 (def like likes)
