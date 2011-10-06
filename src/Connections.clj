@@ -22,8 +22,10 @@
     (= attitude1 attitude2))
 
 (defn are-linked?
-    [connection1 connection2 query1 query2]
-    (or (= (connection1 query1) (connection2 query2))))
+    ([connection query1 query2]
+        (and (not (= nil (connection query1))) (not (= nil (connection query2)))))
+    ([connection1 connection2 query1 query2]
+        (= (connection1 query1) (connection2 query2))))
 
 (defn connected
     ([person1 relation person2 query1 query2]
@@ -34,6 +36,9 @@
                     "Cooperative"
                     (if (= relation "hates")
                         "Uncooperative")))))
+    ([connection query1 query2]
+        (if (not (are-linked? connection query1 query2)) "None"
+            (connection query1 query2)))
     ([connection1 connection2 query1 query2]
         (if (not (are-linked? connection1 connection2 query1 query2)) "None"
             (if (common-attitude-towards-link? connection1 connection2 query1 query2) "Cooperative" "Uncooperative"))))

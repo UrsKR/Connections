@@ -12,16 +12,16 @@
         (test)))
 
 (deftest friendsCooperate
-    (is (= "Cooperative" (Urs-mag-Hunde "Urs" "Hunde"))))
+    (is (= "Cooperative" (connected Urs-mag-Hunde "Urs" "Hunde"))))
 
 (deftest enemiesHinder
-    (is (= "Uncooperative" (Urs-mag-keine-Stinker "Urs" "Stinker"))))
+    (is (= "Uncooperative" (connected Urs-mag-keine-Stinker "Urs" "Stinker"))))
 
 (deftest ignoranceYieldsNoPrevalentBehaviour
-    (is (= "None" (Urs-mag-Hunde "Urs" "Stinker"))))
+    (is (= "None" (connected Urs-mag-Hunde "Urs" "Stinker"))))
 
 (deftest relationshipsAreCommutative
-    (is (= "Cooperative" (Urs-mag-Hunde "Hunde" "Urs"))))
+    (is (= "Cooperative" (connected Urs-mag-Hunde "Hunde" "Urs"))))
 
 
 (deftest relationshipsAreVisible
