@@ -29,4 +29,12 @@
     (is (= "Cooperative" (connected (befriend "Urs" "Hunde") (befriend "Hunde" "Hundebesitzer") "Urs" "Hundebesitzer")))
     )
 
+(deftest antagonisticBehaviourCancelsFriendship
+    (is (= "Uncooperative" (connected (befriend "Urs" "Hunde") (oppose "Hunde" "Hundebesitzer") "Urs" "Hundebesitzer")))
+    )
+
+(deftest unrelatedRelationshipsDoNotMatter
+    (is (= "None" (connected (befriend "Urs" "Hunde") (oppose "Stinker" "Hundebesitzer") "Urs" "Hundebesitzer")))
+    )
+
 (run-tests)
