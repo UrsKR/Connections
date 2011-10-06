@@ -14,6 +14,7 @@
 (deftest relationshipsAreCommutative
     (is (= "Cooperative" ((befriend "Urs" "Hunde") "Hunde" "Urs"))))
 
+
 (deftest relationshipsAreVisible
     (is (= "Hunde" ((befriend "Urs" "Hunde") "Urs"))))
 
@@ -22,6 +23,7 @@
 
 (deftest relationshipsConcernOnlyTwoPersons
     (is (= nil ((befriend "Urs" "Hunde") "Stinker"))))
+
 
 (deftest friendlyBehaviourIsTransitive
     (is (= "Cooperative" (connected (befriend "Urs" "Hunde") (befriend "Hunde" "Hundebesitzer") "Urs" "Hundebesitzer")))

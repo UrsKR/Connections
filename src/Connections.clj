@@ -14,8 +14,8 @@
                 "None"
                 (if (= relation "Friendly") "Cooperative"
                     (if (= relation "Antagonistic") "Uncooperative")))))
-    ([person1 person2 relation person3 person4 relation]
-
+    ([connection1 connection2 query1 query2]
+        
         ))
 
 (defn- connect [name1 name2 relation]
