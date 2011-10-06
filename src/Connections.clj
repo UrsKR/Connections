@@ -10,7 +10,7 @@
             (apply list-contains? collection next))))
 
 (defn belongsTo [connection1 connection2 query]
-    (if (not (= nil (connection1 query))) connection1 connection2))
+    (if (connection1 query) connection1 connection2))
 
 (defn common-attitude-towards-link?
     [connection1 connection2 query1 query2]
