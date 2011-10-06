@@ -1,18 +1,10 @@
-(ns Connections)
+(ns Connections
+  (:use Collections))
 
-(defn list-contains?
-    ([collection value]
-        (let [sequence (seq collection)]
-            (if sequence
-                (some #(= value %) sequence))))
-    ([collection value & next]
-        (if (list-contains? collection value)
-            (apply list-contains? collection next))))
-
-(defn belongsTo [connection1 connection2 query]
+(defn- belongsTo [connection1 connection2 query]
     (if (connection1 query) connection1 connection2))
 
-(defn common-attitude-towards-link?
+(defn- common-attitude-towards-link?
     [connection1 connection2 query1 query2]
     (def connectionForQuery1 (belongsTo connection1 connection2 query1))
     (def connectionForQuery2 (belongsTo connection1 connection2 query2))
@@ -21,7 +13,7 @@
     (def attitude2 (connectionForQuery2 query2 link))
     (= attitude1 attitude2))
 
-(defn are-linked?
+(defn- are-linked?
     ([connection query1 query2]
         (and (connection query1) (connection query2)))
     ([connection1 connection2 query1 query2]

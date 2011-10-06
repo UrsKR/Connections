@@ -1,6 +1,6 @@
-(ns connections.test
+(ns collections.Collections_Test
     (:use clojure.test)
-    (:use Connections))
+    (:use Collections))
 
 (deftest emptyListContainsNothing
   (is (not (list-contains? '() 1))))
