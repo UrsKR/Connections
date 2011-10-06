@@ -23,7 +23,9 @@
         (if (not (= link (connection2 query2))) "None"
             (if (and (= "Cooperative" (connection1 query1 link)) (= "Cooperative" (connection2 link query2)))
                 "Cooperative"
-                "Uncooperative"))))
+                (if (and (= "Uncooperative" (connection1 query1 link)) (= "Uncooperative" (connection2 link query2)))
+                    "Cooperative"
+                    "Uncooperative")))))
 
 (defn- connect [name1 name2 relation]
     (fn

@@ -25,12 +25,16 @@
     (is (= nil ((befriend "Urs" "Hunde") "Stinker"))))
 
 
-(deftest friendlyBehaviourIsTransitive
+(deftest friendsOfMyFriendsAreMyFriends
     (is (= "Cooperative" (connected (befriend "Urs" "Hunde") (befriend "Hunde" "Hundebesitzer") "Urs" "Hundebesitzer")))
     )
 
-(deftest antagonisticBehaviourCancelsFriendship
+(deftest enemiesOfMyFriendsAreMyEnemies
     (is (= "Uncooperative" (connected (befriend "Urs" "Hunde") (oppose "Hunde" "Hundebesitzer") "Urs" "Hundebesitzer")))
+    )
+
+(deftest aCommonEnemyUnites
+    (is (= "Cooperative" (connected (oppose "Urs" "Stinker") (oppose "Stinker" "Hundebesitzer") "Urs" "Hundebesitzer")))
     )
 
 (deftest unrelatedRelationshipsDoNotMatter
