@@ -42,22 +42,22 @@
     (if (not (are-linked? query1 query2 connection1 connection2)) ignorant
       (share-a-bond query1 query2 connection1 connection2))))
 
-(defn- connect [name1 relation name2]
+(defn- connect [person relation other-person]
   (fn
     ([query]
-      (if (= query name1) name2 (if (= query name2) name1)))
+      (if (= query person) other-person (if (= query other-person) person)))
     ([query1 query2]
-      (let [connectedPersons (list name1 name2)]
+      (let [connectedPersons (list person other-person)]
         (if (list-contains? connectedPersons query1 query2) relation ignores)))))
 
-(defn befriend [name1 name2]
-  (connect name1 likes name2))
+(defn befriend [person other-person]
+  (connect person likes other-pereson))
 
-(defn oppose [name1 name2]
-  (connect name1 hates name2))
+(defn oppose [person other-person]
+  (connect person hates other-person))
 
 (defn person [name]
   (fn
     ([] name)
-    ([relation name2]
-      (if (= likes relation) (befriend name (name2)) (if (= hates relation) (oppose name (name2)))))))
+    ([relation other-person]
+      (if (= likes relation) (befriend name (other-person)) (if (= hates relation) (oppose name (other-person)))))))
