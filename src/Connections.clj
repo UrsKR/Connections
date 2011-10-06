@@ -5,14 +5,14 @@
 (def uncooperative "Uncooperative")
 (def ignorant "None")
 
-(defn relationship [type attitude]
+(defn relationship [attitude]
   (fn
     ([] attitude)
-    ([other-relationship] (if (= (relationship type attitude) (other-relationship)) cooperative uncooperative))))
+    ([other-relationship] (if (= ((relationship attitude)) (other-relationship)) cooperative uncooperative))))
 
-(def likes "likes")
+(def likes (relationship cooperative))
 (def like likes)
-(def hates "hates")
+(def hates (relationship uncooperative))
 (def hate hates)
 
 (defn- belongsTo [query connection1 connection2]
