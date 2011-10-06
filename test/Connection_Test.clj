@@ -17,16 +17,16 @@
     (test)))
 
 (deftest friendsCooperate
-  (is (= "Cooperative" ((connected "Urs" "Dogs" Urs-likes-dogs)))))
+  (is (= cooperative ((connected "Urs" "Dogs" Urs-likes-dogs)))))
 
 (deftest enemiesHinder
-  (is (= "Uncooperative" ((connected "Urs" "Stinkers" Urs-hates-stinkers)))))
+  (is (= uncooperative ((connected "Urs" "Stinkers" Urs-hates-stinkers)))))
 
 (deftest ignoranceYieldsNoPrevalentBehaviour
-  (is (= "None" ((connected "Urs" "Stinkers" Urs-likes-dogs)))))
+  (is (= ignorant ((connected "Urs" "Stinkers" Urs-likes-dogs)))))
 
 (deftest relationshipsAreCommutative
-  (is (= "Cooperative" ((connected "Dogs" "Urs" Urs-likes-dogs)))))
+  (is (= cooperative ((connected "Dogs" "Urs" Urs-likes-dogs)))))
 
 
 (deftest relationshipsAreVisible
@@ -40,22 +40,22 @@
 
 
 (deftest friendsOfMyFriendsAreMyFriends
-  (is (= "Cooperative" (connected "Urs" "Dog owners" Urs-likes-dogs dogs-like-owners))))
+  (is (= cooperative (connected "Urs" "Dog owners" Urs-likes-dogs dogs-like-owners))))
 
 (deftest friendsOfMyFriendsAreMyFriendsNoMatterWhichWayILookAtIt
-  (is (= "Cooperative" (connected "Dog owners" "Urs" Urs-likes-dogs dogs-like-owners))))
+  (is (= cooperative (connected "Dog owners" "Urs" Urs-likes-dogs dogs-like-owners))))
 
 (deftest enemiesOfMyFriendsAreMyEnemies
-  (is (= "Uncooperative" (connected "Urs" "Stinkers" Urs-likes-dogs dogs-hate-stinkers))))
+  (is (= uncooperative (connected "Urs" "Stinkers" Urs-likes-dogs dogs-hate-stinkers))))
 
 (deftest enemiesOfMyFriendsAreMyEnemiesNoMatterWhichWayILookAtIt
-  (is (= "Uncooperative" (connected "Stinkers" "Urs" Urs-likes-dogs dogs-hate-stinkers))))
+  (is (= uncooperative (connected "Stinkers" "Urs" Urs-likes-dogs dogs-hate-stinkers))))
 
 (deftest aCommonEnemyUnites
-  (is (= "Cooperative" (connected "Urs" "Cats" Urs-hates-stinkers stinkers-hate-cats))))
+  (is (= cooperative (connected "Urs" "Cats" Urs-hates-stinkers stinkers-hate-cats))))
 
 (deftest unrelatedRelationshipsDoNotMatter
-  (is (= "None" (connected "Urs" "Stinkers" Urs-likes-dogs stinkers-hate-cats))))
+  (is (= ignorant (connected "Urs" "Stinkers" Urs-likes-dogs stinkers-hate-cats))))
 
 (use-fixtures :each create-relationships)
 (run-tests)
