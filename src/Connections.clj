@@ -13,10 +13,15 @@
             (if (not (list-contains? connectedPersons query1 query2))
                 "None"
                 (if (= relation "Friendly") "Cooperative"
-                    (if (= relation "Antagonistic") "Uncooperative"))))))
+                    (if (= relation "Antagonistic") "Uncooperative")))))
+    ([person1 person2 relation person3 person4 relation]
+
+        ))
 
 (defn- connect [name1 name2 relation]
-    (fn [query1 query2] (connected name1 name2 relation query1 query2)))
+    (fn
+        ([query] (if (= query name1) name2 (if (= query name2) name1)))
+        ([query1 query2] (connected name1 name2 relation query1 query2))))
 
 (defn befriend [name1 name2]
     (connect name1 name2 "Friendly"))
