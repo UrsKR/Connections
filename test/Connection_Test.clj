@@ -2,43 +2,54 @@
     (:use clojure.test)
     (:use Connections))
 
+(defn create-relationships [test]
+    (
+        (do
+            (def Urs-mag-Hunde (befriend "Urs" "Hunde"))
+            (def Urs-mag-keine-Stinker (oppose "Urs" "Stinker"))
+            (def Hunde-moegen-Herrchen (befriend "Hunde" "Hundebesitzer"))
+            (def Hunde-moegen-keine-Stinker (oppose "Hunde" "Stinker"))
+            (def Stinker-moegen-keine-Katzen (oppose "Stinker" "Katzen")))
+        (test)))
+
 (deftest friendsCooperate
-    (is (= "Cooperative" ((befriend "Urs" "Hunde") "Urs" "Hunde"))))
+    (is (= "Cooperative" (Urs-mag-Hunde "Urs" "Hunde"))))
 
 (deftest enemiesHinder
-    (is (= "Uncooperative" ((oppose "Urs" "Stinker") "Urs" "Stinker"))))
+    (is (= "Uncooperative" (Urs-mag-keine-Stinker "Urs" "Stinker"))))
 
 (deftest ignoranceYieldsNoPrevalentBehaviour
-    (is (= "None" ((befriend "Urs" "Hunde") "Urs" "Stinker"))))
+    (is (= "None" (Urs-mag-Hunde "Urs" "Stinker"))))
 
 (deftest relationshipsAreCommutative
-    (is (= "Cooperative" ((befriend "Urs" "Hunde") "Hunde" "Urs"))))
+    (is (= "Cooperative" (Urs-mag-Hunde "Hunde" "Urs"))))
 
 
 (deftest relationshipsAreVisible
-    (is (= "Hunde" ((befriend "Urs" "Hunde") "Urs"))))
+    (is (= "Hunde" (Urs-mag-Hunde "Urs"))))
 
 (deftest relationshipsAreVisibleInBothDirections
-    (is (= "Urs" ((befriend "Urs" "Hunde") "Hunde"))))
+    (is (= "Urs" (Urs-mag-Hunde "Hunde"))))
 
 (deftest relationshipsConcernOnlyTwoPersons
-    (is (= nil ((befriend "Urs" "Hunde") "Stinker"))))
+    (is (= nil (Urs-mag-Hunde "Stinker"))))
 
 
 (deftest friendsOfMyFriendsAreMyFriends
-    (is (= "Cooperative" (connected (befriend "Urs" "Hunde") (befriend "Hunde" "Hundebesitzer") "Urs" "Hundebesitzer")))
+    (is (= "Cooperative" (connected Urs-mag-Hunde Hunde-moegen-Herrchen "Urs" "Hundebesitzer")))
     )
 
 (deftest enemiesOfMyFriendsAreMyEnemies
-    (is (= "Uncooperative" (connected (befriend "Urs" "Hunde") (oppose "Hunde" "Hundebesitzer") "Urs" "Hundebesitzer")))
+    (is (= "Uncooperative" (connected Urs-mag-Hunde Hunde-moegen-keine-Stinker "Urs" "Stinker")))
     )
 
 (deftest aCommonEnemyUnites
-    (is (= "Cooperative" (connected (oppose "Urs" "Stinker") (oppose "Stinker" "Hundebesitzer") "Urs" "Hundebesitzer")))
+    (is (= "Cooperative" (connected Urs-mag-keine-Stinker Stinker-moegen-keine-Katzen "Urs" "Katzen")))
     )
 
 (deftest unrelatedRelationshipsDoNotMatter
-    (is (= "None" (connected (befriend "Urs" "Hunde") (oppose "Stinker" "Hundebesitzer") "Urs" "Hundebesitzer")))
+    (is (= "None" (connected Urs-mag-Hunde Stinker-moegen-keine-Katzen "Urs" "Stinker")))
     )
 
+(use-fixtures :each create-relationships)
 (run-tests)
