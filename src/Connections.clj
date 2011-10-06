@@ -1,6 +1,11 @@
 (ns Connections
   (:use Collections))
 
+(def likes "likes")
+(def like "likes")
+(def hates "hates")
+(def hate "hates")
+
 (defn- belongsTo [query connection1 connection2]
   (if (connection1 query) connection1 connection2))
 
@@ -34,21 +39,16 @@
       (let [connectedPersons (list name1 name2)]
         (if (not (list-contains? connectedPersons query1 query2))
           "None"
-          (if (= relation "likes")
+          (if (= relation likes)
             "Cooperative"
-            (if (= relation "hates")
+            (if (= relation hates)
               "Uncooperative")))))))
 
 (defn befriend [name1 name2]
-  (connect name1 "likes" name2))
+  (connect name1 likes name2))
 
 (defn oppose [name1 name2]
-  (connect name1 "hates" name2))
-
-(def likes "likes")
-(def like "likes")
-(def hates "hates")
-(def hate "hates")
+  (connect name1 hates name2))
 
 (defn person [name]
   (fn [relation name2]
