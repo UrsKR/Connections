@@ -17,15 +17,8 @@
     (def connectionForQuery1 (belongsTo connection1 connection2 query1))
     (def connectionForQuery2 (belongsTo connection1 connection2 query2))
     (def link (connectionForQuery1 query1))
-
-    (def attitude1-option-1 (connection1 query1 link))
-    (def attitude1-option-2 (connection1 query2 link))
-    (def attitude1 (if (= "None" attitude1-option-1) attitude1-option-2 attitude1-option-1))
-
-    (def attitude2-option-1 (connection2 query1 link))
-    (def attitude2-option-2 (connection2 query2 link))
-    (def attitude2 (if (= "None" attitude2-option-1) attitude2-option-2 attitude2-option-1))
-
+    (def attitude1 (connectionForQuery1 query1 link))
+    (def attitude2 (connectionForQuery2 query2 link))
     (= attitude1 attitude2))
 
 (defn are-linked?
