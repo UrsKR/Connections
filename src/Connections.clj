@@ -55,5 +55,7 @@
   (connect name1 hates name2))
 
 (defn person [name]
-  (fn [relation name2]
-    (if (= likes relation) (befriend  name name2) (if (= hates relation) (oppose name name2)))))
+  (fn
+    ([] (name))
+    ([relation name2]
+      (if (= likes relation) (befriend name name2) (if (= hates relation) (oppose name name2))))))
