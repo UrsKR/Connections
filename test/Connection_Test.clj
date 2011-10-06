@@ -3,8 +3,7 @@
     (:use Connections))
 
 (defn create-relationships [test]
-    (
-        (do
+    ((do
             (def Urs-mag-Hunde (befriend "Urs" "Hunde"))
             (def Urs-mag-keine-Stinker (oppose "Urs" "Stinker"))
             (def Hunde-moegen-Herrchen (befriend "Hunde" "Hundebesitzer"))
@@ -36,20 +35,16 @@
 
 
 (deftest friendsOfMyFriendsAreMyFriends
-    (is (= "Cooperative" (connected Urs-mag-Hunde Hunde-moegen-Herrchen "Urs" "Hundebesitzer")))
-    )
+    (is (= "Cooperative" (connected Urs-mag-Hunde Hunde-moegen-Herrchen "Urs" "Hundebesitzer"))))
 
 (deftest enemiesOfMyFriendsAreMyEnemies
-    (is (= "Uncooperative" (connected Urs-mag-Hunde Hunde-moegen-keine-Stinker "Urs" "Stinker")))
-    )
+    (is (= "Uncooperative" (connected Urs-mag-Hunde Hunde-moegen-keine-Stinker "Urs" "Stinker"))))
 
 (deftest aCommonEnemyUnites
-    (is (= "Cooperative" (connected Urs-mag-keine-Stinker Stinker-moegen-keine-Katzen "Urs" "Katzen")))
-    )
+    (is (= "Cooperative" (connected Urs-mag-keine-Stinker Stinker-moegen-keine-Katzen "Urs" "Katzen"))))
 
 (deftest unrelatedRelationshipsDoNotMatter
-    (is (= "None" (connected Urs-mag-Hunde Stinker-moegen-keine-Katzen "Urs" "Stinker")))
-    )
+    (is (= "None" (connected Urs-mag-Hunde Stinker-moegen-keine-Katzen "Urs" "Stinker"))))
 
 (use-fixtures :each create-relationships)
 (run-tests)
