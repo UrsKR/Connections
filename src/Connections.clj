@@ -49,11 +49,8 @@
     ([query1 query2]
       (let [connectedPersons (list name1 name2)]
         (if (not (list-contains? connectedPersons query1 query2))
-          ignorant
-          (if (= relation likes)
-            cooperative
-            (if (= relation hates)
-              uncooperative)))))))
+          ignores relation
+          )))))
 
 (defn befriend [name1 name2]
   (connect name1 likes name2))
