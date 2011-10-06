@@ -28,14 +28,6 @@
         (= (connection1 query1) (connection2 query2))))
 
 (defn connected
-    ([person1 relation person2 query1 query2]
-        (let [connectedPersons (list person1 person2)]
-            (if (not (list-contains? connectedPersons query1 query2))
-                "None"
-                (if (= relation "likes")
-                    "Cooperative"
-                    (if (= relation "hates")
-                        "Uncooperative")))))
     ([connection query1 query2]
         (if (not (are-linked? connection query1 query2)) "None"
             (connection query1 query2)))
@@ -45,8 +37,16 @@
 
 (defn- connect [name1 relation name2]
     (fn
-        ([query] (if (= query name1) name2 (if (= query name2) name1)))
-        ([query1 query2] (connected name1 relation name2 query1 query2))))
+        ([query]
+            (if (= query name1) name2 (if (= query name2) name1)))
+        ([query1 query2]
+            (let [connectedPersons (list name1 name2)]
+                (if (not (list-contains? connectedPersons query1 query2))
+                    "None"
+                    (if (= relation "likes")
+                        "Cooperative"
+                        (if (= relation "hates")
+                            "Uncooperative")))))))
 
 (defn befriend [name1 name2]
     (connect name1 "likes" name2))
