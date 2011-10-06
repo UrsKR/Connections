@@ -7,16 +7,16 @@
     ([collection value & next]
         (if (list-contains? collection value) (apply list-contains? collection next))))
 
-(defn connected [person1 person2 relation query1 query2]
-    (let [connectedPersons (list person1 person2)]
-        (if (not (list-contains? connectedPersons query1 query2))
+(defn connected
+    ([person1 person2 relation query1 query2]
+        (let [connectedPersons (list person1 person2)]
+            (if (not (list-contains? connectedPersons query1 query2))
                 "None"
-            (if (= relation "Friendly") "Cooperative"
-            (if (= relation "Antagonistic") "Uncooperative"
-            "None")))))
+                (if (= relation "Friendly") "Cooperative"
+                    (if (= relation "Antagonistic") "Uncooperative"))))))
 
 (defn- connect [name1 name2 relation]
-     (fn [query1 query2] (connected name1 name2 relation query1 query2)))
+    (fn [query1 query2] (connected name1 name2 relation query1 query2)))
 
 (defn befriend [name1 name2]
     (connect name1 name2 "Friendly"))
