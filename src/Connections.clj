@@ -1,14 +1,19 @@
 (ns Connections
   (:use Collections))
 
+(def cooperative "Cooperative")
+(def uncooperative "Uncooperative")
+(def ignorant "None")
+
+(defn relationship [type attitude]
+  (fn
+    ([] attitude)
+    ([other-relationship] (if (= (relationship type attitude) (other-relationship)) cooperative uncooperative))))
+
 (def likes "likes")
 (def like likes)
 (def hates "hates")
 (def hate hates)
-
-(def cooperative "Cooperative")
-(def uncooperative "Uncooperative")
-(def ignorant "None")
 
 (defn- belongsTo [query connection1 connection2]
   (if (connection1 query) connection1 connection2))
