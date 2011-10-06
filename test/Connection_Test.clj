@@ -4,53 +4,56 @@
 
 (defn create-relationships [test]
   ((do
-     (def Urs-mag-Hunde (befriend "Urs" "Hunde"))
-     (def Urs-mag-keine-Stinker (oppose "Urs" "Stinker"))
-     (def Hunde-moegen-Herrchen (befriend "Hunde" "Hundebesitzer"))
-     (def Hunde-moegen-keine-Stinker (oppose "Hunde" "Stinker"))
-     (def Stinker-moegen-keine-Katzen (oppose "Stinker" "Katzen")))
+     (def Urs (person "Urs"))
+     (def dogs (person "Dogs"))
+     (def stinkers (person "Stinkers"))
+     (def Urs-likes-dogs (Urs likes "Dogs"))
+     (def Urs-hates-stinkers (Urs hates "Stinkers"))
+     (def dogs-like-owners (dogs like "Dog owners"))
+     (def dogs-hate-stinkers (dogs hate "Stinkers"))
+     (def stinkers-hate-cats (stinkers hate "Cats")))
     (test)))
 
 (deftest friendsCooperate
-  (is (= "Cooperative" (connected "Urs" "Hunde" Urs-mag-Hunde))))
+  (is (= "Cooperative" (connected "Urs" "Dogs" Urs-likes-dogs))))
 
 (deftest enemiesHinder
-  (is (= "Uncooperative" (connected "Urs" "Stinker" Urs-mag-keine-Stinker))))
+  (is (= "Uncooperative" (connected "Urs" "Stinkers" Urs-hates-stinkers))))
 
 (deftest ignoranceYieldsNoPrevalentBehaviour
-  (is (= "None" (connected "Urs" "Stinker" Urs-mag-Hunde))))
+  (is (= "None" (connected "Urs" "Stinkers" Urs-likes-dogs))))
 
 (deftest relationshipsAreCommutative
-  (is (= "Cooperative" (connected "Hunde" "Urs" Urs-mag-Hunde))))
+  (is (= "Cooperative" (connected "Dogs" "Urs" Urs-likes-dogs))))
 
 
 (deftest relationshipsAreVisible
-  (is (= "Hunde" (Urs-mag-Hunde "Urs"))))
+  (is (= "Dogs" (Urs-likes-dogs "Urs"))))
 
 (deftest relationshipsAreVisibleInBothDirections
-  (is (= "Urs" (Urs-mag-Hunde "Hunde"))))
+  (is (= "Urs" (Urs-likes-dogs "Dogs"))))
 
 (deftest relationshipsConcernOnlyTwoPersons
-  (is (= nil (Urs-mag-Hunde "Stinker"))))
+  (is (= nil (Urs-likes-dogs "Stinkers"))))
 
 
 (deftest friendsOfMyFriendsAreMyFriends
-  (is (= "Cooperative" (connected "Urs" "Hundebesitzer" Urs-mag-Hunde Hunde-moegen-Herrchen))))
+  (is (= "Cooperative" (connected "Urs" "Dog owners" Urs-likes-dogs dogs-like-owners))))
 
 (deftest friendsOfMyFriendsAreMyFriendsNoMatterWhichWayILookAtIt
-  (is (= "Cooperative" (connected "Hundebesitzer" "Urs" Urs-mag-Hunde Hunde-moegen-Herrchen))))
+  (is (= "Cooperative" (connected "Dog owners" "Urs" Urs-likes-dogs dogs-like-owners))))
 
 (deftest enemiesOfMyFriendsAreMyEnemies
-  (is (= "Uncooperative" (connected "Urs" "Stinker" Urs-mag-Hunde Hunde-moegen-keine-Stinker))))
+  (is (= "Uncooperative" (connected "Urs" "Stinkers" Urs-likes-dogs dogs-hate-stinkers))))
 
 (deftest enemiesOfMyFriendsAreMyEnemiesNoMatterWhichWayILookAtIt
-  (is (= "Uncooperative" (connected "Stinker" "Urs" Urs-mag-Hunde Hunde-moegen-keine-Stinker))))
+  (is (= "Uncooperative" (connected "Stinkers" "Urs" Urs-likes-dogs dogs-hate-stinkers))))
 
 (deftest aCommonEnemyUnites
-  (is (= "Cooperative" (connected "Urs" "Katzen" Urs-mag-keine-Stinker Stinker-moegen-keine-Katzen))))
+  (is (= "Cooperative" (connected "Urs" "Cats" Urs-hates-stinkers stinkers-hate-cats))))
 
 (deftest unrelatedRelationshipsDoNotMatter
-  (is (= "None" (connected "Urs" "Stinker" Urs-mag-Hunde Stinker-moegen-keine-Katzen))))
+  (is (= "None" (connected "Urs" "Stinkers" Urs-likes-dogs stinkers-hate-cats))))
 
 (use-fixtures :each create-relationships)
 (run-tests)

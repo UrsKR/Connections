@@ -44,3 +44,12 @@
 
 (defn oppose [name1 name2]
   (connect name1 "hates" name2))
+
+(def likes "likes")
+(def like "likes")
+(def hates "hates")
+(def hate "hates")
+
+(defn person [name]
+  (fn [relation name2]
+    (if (= likes relation) (befriend  name name2) (if (= hates relation) (oppose name name2)))))
