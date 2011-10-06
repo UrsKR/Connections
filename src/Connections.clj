@@ -11,14 +11,24 @@
 
 (defn common-attitude-towards-link?
     [connection1 connection2 query1 query2]
-    (def link (connection1 query1))
-    (def attitude1 (connection1 query1 link))
-    (def attitude2 (connection2 link query2))
+
+    (def link-option-1 (connection1 query1))
+    (def link-option-2 (connection1 query2))
+    (def link (if (= nil link-option-1) link-option-2 link-option-1))
+
+    (def attitude1-option-1 (connection1 query1 link))
+    (def attitude1-option-2 (connection1 query2 link))
+    (def attitude1 (if (= "None" attitude1-option-1) attitude1-option-2 attitude1-option-1))
+
+    (def attitude2-option-1 (connection2 query1 link))
+    (def attitude2-option-2 (connection2 query2 link))
+    (def attitude2 (if (= "None" attitude2-option-1) attitude2-option-2 attitude2-option-1))
+
     (= attitude1 attitude2))
 
 (defn are-linked?
     [connection1 connection2 query1 query2]
-    (= (connection1 query1) (connection2 query2)))
+    (or (= (connection1 query1) (connection2 query2))))
 
 (defn connected
     ([person1 person2 relation query1 query2]

@@ -37,8 +37,14 @@
 (deftest friendsOfMyFriendsAreMyFriends
     (is (= "Cooperative" (connected Urs-mag-Hunde Hunde-moegen-Herrchen "Urs" "Hundebesitzer"))))
 
+(deftest friendsOfMyFriendsAreMyFriendsNoMatterWhichWayILookAtIt
+    (is (= "Cooperative" (connected Urs-mag-Hunde Hunde-moegen-Herrchen "Hundebesitzer" "Urs"))))
+
 (deftest enemiesOfMyFriendsAreMyEnemies
     (is (= "Uncooperative" (connected Urs-mag-Hunde Hunde-moegen-keine-Stinker "Urs" "Stinker"))))
+
+(deftest enemiesOfMyFriendsAreMyEnemiesNoMatterWhichWayILookAtIt
+    (is (= "Uncooperative" (connected Urs-mag-Hunde Hunde-moegen-keine-Stinker "Stinker" "Urs"))))
 
 (deftest aCommonEnemyUnites
     (is (= "Cooperative" (connected Urs-mag-keine-Stinker Stinker-moegen-keine-Katzen "Urs" "Katzen"))))
