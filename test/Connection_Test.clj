@@ -22,8 +22,10 @@
 (deftest peopleLikeToSpeakOfTheirFriends
   (is (= likes (Urs dogs))))
 
-(comment "how to do this?" (deftest peopleLikeToSpeakOfTheirFriends
-  (is (= likes (Urs dogs)))))
+(comment "This requires self-reference. How to do it in clojure?"
+  (deftest relationshipsAreMutual
+    (is (= likes (dogs Urs))))
+  )
 
 (deftest enemiesHinder
   (is (= uncooperative ((connected "Urs" "Stinkers" Urs-hates-stinkers)))))
