@@ -22,6 +22,9 @@
 (deftest peopleLikeToSpeakOfTheirFriends
   (is (= likes (Urs dogs))))
 
+(comment "how to do this?" (deftest peopleLikeToSpeakOfTheirFriends
+  (is (= likes (Urs dogs)))))
+
 (deftest enemiesHinder
   (is (= uncooperative ((connected "Urs" "Stinkers" Urs-hates-stinkers)))))
 
