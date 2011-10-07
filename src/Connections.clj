@@ -50,12 +50,6 @@
       (let [connectedPersons (list person other-person)]
         (if (list-contains? connectedPersons query1 query2) relation ignores)))))
 
-(defn befriend [person other-person]
-  (connect person likes other-person))
-
-(defn oppose [person other-person]
-  (connect person hates other-person))
-
 (defn person [name]
   (def relationships {})
   (fn
