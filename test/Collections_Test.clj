@@ -17,6 +17,9 @@
 (deftest multiElementListContainsAllElements
   (is (list-contains? '(1 2) 1 2)))
 
+(deftest largeListContainsAllElements
+  (is (list-contains? '(1 2 3 4) 1 2 3 4)))
+
 (deftest multiElementListDoesNotContainDifferentElements
   (is (not (list-contains? '(1 2) 3 2))))
 
