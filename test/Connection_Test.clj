@@ -19,6 +19,9 @@
 (deftest friendsCooperate
   (is (= cooperative ((connected "Urs" "Dogs" Urs-likes-dogs)))))
 
+(deftest peopleLikeToSpeakOfTheirFriends
+  (is (= likes (Urs dogs))))
+
 (deftest enemiesHinder
   (is (= uncooperative ((connected "Urs" "Stinkers" Urs-hates-stinkers)))))
 
