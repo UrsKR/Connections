@@ -57,5 +57,6 @@
 (deftest unrelatedRelationshipsDoNotMatter
   (is (= ignorant (connected "Urs" "Stinkers" Urs-likes-dogs stinkers-hate-cats))))
 
+
 (use-fixtures :each create-relationships)
 (run-tests)

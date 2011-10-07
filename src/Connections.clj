@@ -17,13 +17,13 @@
 (def ignores (relationship ignorant))
 (def ignore ignores)
 
-(defn- belongsTo [query connection1 connection2]
+(defn- findConnection [query connection1 connection2]
   (if (connection1 query) connection1 connection2))
 
-(defn- share-a-bond
+(defn- shared-bond
   [query1 query2 connection1 connection2]
-  (def connectionForQuery1 (belongsTo query1 connection1 connection2))
-  (def connectionForQuery2 (belongsTo query2 connection1 connection2))
+  (def connectionForQuery1 (findConnection query1 connection1 connection2))
+  (def connectionForQuery2 (findConnection query2 connection1 connection2))
   (def link (connectionForQuery1 query1))
   (def attitude1 (connectionForQuery1 query1 link))
   (def attitude2 (connectionForQuery2 query2 link))
@@ -40,7 +40,7 @@
     (connection query1 query2))
   ([query1 query2 connection1 connection2]
     (if (not (are-linked? query1 query2 connection1 connection2)) ignorant
-      (share-a-bond query1 query2 connection1 connection2))))
+      (shared-bond query1 query2 connection1 connection2))))
 
 (defn- connect [person relation other-person]
   (fn
@@ -51,7 +51,7 @@
         (if (list-contains? connectedPersons query1 query2) relation ignores)))))
 
 (defn befriend [person other-person]
-  (connect person likes other-pereson))
+  (connect person likes other-person))
 
 (defn oppose [person other-person]
   (connect person hates other-person))
