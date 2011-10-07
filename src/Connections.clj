@@ -33,7 +33,13 @@
   ([query1 query2 connection]
     (and (connection query1) (connection query2)))
   ([query1 query2 connection1 connection2]
-    (= (connection1 query1) (connection2 query2))))
+    (println connection1)
+    (println query1)
+    (def link1 (connection1 query1))
+    (println connection2)
+    (println query2)
+    (def link2 (connection2 query2))
+    (= link1 link2)))
 
 (defn connected
   ([query1 query2 connection]
@@ -52,11 +58,12 @@
 
 (defn person [name]
   (def relationships {})
-  (fn
+  (fn myself
     ([]
       name)
     ([other-person]
       (get relationships other-person))
     ([relation other-person]
       (def relationships (assoc relationships other-person relation))
+      (if (not (other-person myself)) (other-person relation myself))
       (connect name relation (other-person)))))

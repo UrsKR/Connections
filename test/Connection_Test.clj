@@ -22,10 +22,8 @@
 (deftest peopleLikeToSpeakOfTheirFriends
   (is (= likes (Urs dogs))))
 
-(comment "This requires self-reference. How to do it in clojure?"
-  (deftest relationshipsAreMutual
-    (is (= likes (dogs Urs))))
-  )
+(deftest relationshipsAreMutual
+  (is (= likes (dogs Urs))))
 
 (deftest enemiesHinder
   (is (= uncooperative ((connected "Urs" "Stinkers" Urs-hates-stinkers)))))
@@ -64,7 +62,6 @@
 
 (deftest unrelatedRelationshipsDoNotMatter
   (is (= ignorant (connected "Urs" "Stinkers" Urs-likes-dogs stinkers-hate-cats))))
-
 
 (use-fixtures :each create-relationships)
 (run-tests)
