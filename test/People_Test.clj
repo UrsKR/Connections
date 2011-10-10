@@ -6,6 +6,9 @@
 (def Sandra (person "Sandra"))
 (def Georg (person "Georg"))
 
+(deftest everyoneKnowsHimself
+  (is (true? (knows? Urs Urs))))
+
 (deftest peopleKnowPeopleTheyAreIntroducedTo
   (introduce Urs Sandra)
   (is (true? (knows? Urs Sandra))))
@@ -28,9 +31,9 @@
   (introduce Sandra Urs)
   (is (true? (know-each-other? Urs Sandra))))
 
-(deftest peopleYouKnowLinkYouToOtherPeople
+(comment deftest peopleYouKnowLinkYouToOtherPeople
   (introduce Urs Sandra)
   (introduce Sandra Georg)
-  (comment is (true? (is-linked-to? Urs Georg))))
+  (is (true? (is-linked-to? Urs Georg))))
 
 (run-tests)
