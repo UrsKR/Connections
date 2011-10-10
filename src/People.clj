@@ -10,6 +10,9 @@
 (defn know-each-other? [person other-person]
   (and (knows? person other-person) (knows? other-person person)))
 
+(defn is-linked-to? [person other-person]
+  (= other-person (get relationships (get relationships person))))
+
 (def introduce
   (fn ([person other-person]
         (def relationships (assoc relationships person other-person)))

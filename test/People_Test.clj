@@ -23,4 +23,9 @@
   (introduce Sandra Urs)
   (is (true? (know-each-other? Urs Sandra))))
 
+(deftest peopleYouKnowLinkYouToOtherPeople
+  (introduce Urs Sandra)
+  (introduce Sandra Georg)
+  (is (true? (is-linked-to? Urs Georg))))
+
 (run-tests)
