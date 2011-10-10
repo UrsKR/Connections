@@ -4,6 +4,8 @@
 
 (def relationships {})
 
+(defn forget-everyone [] (def relationships {}))
+
 (defn knows? [person other-person]
   (if (= person other-person)
     true
@@ -12,9 +14,13 @@
 (defn know-each-other? [person other-person]
   (and (knows? person other-person) (knows? other-person person)))
 
-(comment defn is-linked-to? [person other-person]
-  (def contacts-of-person (get relationships person))
-  (= other-person (get relationships contacts-of-person)))
+(defn is-linked-to? [person other-person]
+  (if (knows? person other-person)
+    true
+    (do
+      (def contacts-of-person (get relationships person))
+      (def direct-link (first contacts-of-person))
+      (is-linked-to? direct-link other-person))))
 
 (def introduce
   (fn ([person other-person]

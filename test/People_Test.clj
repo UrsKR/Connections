@@ -2,9 +2,14 @@
   (:use clojure.test)
   (:use People))
 
-(def Urs (person "Urs"))
-(def Sandra (person "Sandra"))
-(def Georg (person "Georg"))
+
+(defn forget [test] (forget-everyone) (test))
+
+(defn populate [test]
+  (def Urs (person "Urs"))
+  (def Sandra (person "Sandra"))
+  (def Georg (person "Georg"))
+  (test))
 
 (deftest everyoneKnowsHimself
   (is (true? (knows? Urs Urs))))
@@ -12,6 +17,9 @@
 (deftest peopleKnowPeopleTheyAreIntroducedTo
   (introduce Urs Sandra)
   (is (true? (knows? Urs Sandra))))
+
+(deftest introductionsMatter
+  (is (false? (knows? Urs Sandra))))
 
 (deftest introductionsAreUnidirectional
   (introduce Urs Sandra)
@@ -31,9 +39,14 @@
   (introduce Sandra Urs)
   (is (true? (know-each-other? Urs Sandra))))
 
-(comment deftest peopleYouKnowLinkYouToOtherPeople
+(deftest youAreLinkedByIntroductions
+  (introduce Urs Sandra)
+  (is (true? (is-linked-to? Urs Sandra))))
+
+(deftest peopleYouKnowLinkYouToOtherPeople
   (introduce Urs Sandra)
   (introduce Sandra Georg)
   (is (true? (is-linked-to? Urs Georg))))
 
+(use-fixtures :each forget populate)
 (run-tests)
