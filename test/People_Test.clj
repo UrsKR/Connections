@@ -65,5 +65,11 @@
   (introduce Urs Sandra)
   (is (false? (is-linked-to? Urs Georg))))
 
+(deftest recognizesEvenCircularLinks
+  (introduce Urs Sandra)
+  (introduce Sandra Georg)
+  (introduce Georg Urs)
+  (is (false? (is-linked-to? Urs Heiner))))
+
 (use-fixtures :each forget populate)
 (run-tests)
