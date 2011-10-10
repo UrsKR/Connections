@@ -14,11 +14,16 @@
   (introduce Urs Sandra)
   (is (false? (knows? Sandra Urs))))
 
-(deftest introductionsCanInvolveManyPeople
+(deftest introductionsCanInvolveSomePeople
   (introduce Urs Sandra Georg)
   (is (true? (knows? Urs Georg))))
 
-(deftest mutualIntroductions
+(deftest peopleRememberEvenAfterMoreIntroductions
+  (introduce Urs Sandra)
+  (introduce Urs Georg)
+  (is (true? (knows? Urs Sandra))))
+
+(deftest mutualIntroductionsAreMutuallyRemembered
   (introduce Urs Sandra)
   (introduce Sandra Urs)
   (is (true? (know-each-other? Urs Sandra))))
@@ -26,6 +31,6 @@
 (deftest peopleYouKnowLinkYouToOtherPeople
   (introduce Urs Sandra)
   (introduce Sandra Georg)
-  (is (true? (is-linked-to? Urs Georg))))
+  (comment is (true? (is-linked-to? Urs Georg))))
 
 (run-tests)
