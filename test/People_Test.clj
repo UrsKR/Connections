@@ -9,6 +9,7 @@
   (def Urs (person "Urs"))
   (def Sandra (person "Sandra"))
   (def Georg (person "Georg"))
+  (def Heiner (person "Heiner"))
   (test))
 
 (deftest everyoneKnowsHimself
@@ -47,6 +48,22 @@
   (introduce Urs Sandra)
   (introduce Sandra Georg)
   (is (true? (is-linked-to? Urs Georg))))
+
+(deftest someDeadEndsDontHinderALink
+  (introduce Urs Sandra)
+  (introduce Sandra Heiner)
+  (introduce Sandra Georg)
+  (is (true? (is-linked-to? Urs Georg))))
+
+(deftest linksGoALongWay
+  (introduce Urs Sandra)
+  (introduce Sandra Heiner)
+  (introduce Heiner Georg)
+  (is (true? (is-linked-to? Urs Georg))))
+
+(deftest somePeopleCannotBeLinked
+  (introduce Urs Sandra)
+  (is (false? (is-linked-to? Urs Georg))))
 
 (use-fixtures :each forget populate)
 (run-tests)

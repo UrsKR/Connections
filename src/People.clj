@@ -18,9 +18,11 @@
   (if (knows? person other-person)
     true
     (do
-      (def contacts-of-person (get relationships person))
-      (def direct-link (first contacts-of-person))
-      (is-linked-to? direct-link other-person))))
+      (if (nil? person) false
+        (do
+          (def contacts-of-person (get relationships person))
+          (def direct-link (first contacts-of-person))
+          (is-linked-to? direct-link other-person))))))
 
 (def introduce
   (fn ([person other-person]
