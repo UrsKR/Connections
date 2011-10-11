@@ -12,16 +12,21 @@
 (deftest everyoneKnowsHimself
   (is (true? (knows? Urs Urs))))
 
+(deftest peopleDontKnowEachOtherWithoutIntroductions
+  (is (false? (knows? Urs Sandra))))
+
 (deftest peopleKnowPeopleTheyAreIntroducedTo
   (def Urs (introduce Urs Sandra))
   (is (true? (knows? Urs Sandra))))
 
-(deftest introductionsMatter
-  (is (false? (knows? Urs Sandra))))
-
 (deftest introductionsAreUnidirectional
   (def Urs (introduce Urs Sandra))
   (is (false? (knows? Sandra Urs))))
+
+(deftest mutualIntroductionsAreMutuallyRemembered
+  (def Urs (introduce Urs Sandra))
+  (def Sandra (introduce Sandra Urs))
+  (is (true? (know-each-other? Urs Sandra))))
 
 (deftest introductionsCanInvolveSomePeople
   (def Urs (introduce Urs Sandra Georg))
@@ -31,11 +36,6 @@
   (def Urs (introduce Urs Sandra))
   (def Urs (introduce Urs Georg))
   (is (true? (knows? Urs Sandra))))
-
-(deftest mutualIntroductionsAreMutuallyRemembered
-  (def Urs (introduce Urs Sandra))
-  (def Sandra (introduce Sandra Urs))
-  (is (true? (know-each-other? Urs Sandra))))
 
 (deftest youAreLinkedByIntroductions
   (def Urs (introduce Urs Sandra))
@@ -58,11 +58,11 @@
   (def Urs (introduce Urs Sandra))
   (is (true? (is-linked-to? Urs Georg))))
 
-(deftest somePeopleCannotBeLinked
+(deftest somePeopleJustAreNotBeLinked
   (def Urs (introduce Urs Sandra))
   (is (false? (is-linked-to? Urs Georg))))
 
-(deftest recognizesEvenCircularLinks
+(deftest circularLinksDontCrashTheEvaluation
   (def Urs (introduce Urs Sandra))
   (def Sandra (introduce Sandra Georg))
   (def Georg (introduce Georg Urs))
