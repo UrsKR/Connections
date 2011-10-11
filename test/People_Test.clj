@@ -2,7 +2,6 @@
   (:use clojure.test)
   (:use People))
 
-
 (defn populate [test]
   (def Urs (person "Urs"))
   (def Sandra (person "Sandra"))
